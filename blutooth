@@ -1,12 +1,22 @@
-- 👋 Hi, I’m @erickasu
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
+#include <SoftwareSerial.h>
 
-<!---
-erickasu/erickasu is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+SoftwareSerial BTserial(2, 3); // RX | TX
+
+void setup() {
+  Serial.begin(9600);
+  BTserial.begin(9600);
+  Serial.println("Arduino is ready");
+}
+
+void loop() {
+  // Lee los datos de Bluetooth y los imprime en el puerto serie
+  if (BTserial.available()) {
+    Serial.write(BTserial.read());
+  }
+  
+  // Lee los datos del puerto serie y los envía por Bluetooth
+  if (Serial.available()) {
+    BTserial.write(Serial.read());
+  }
+}
+
